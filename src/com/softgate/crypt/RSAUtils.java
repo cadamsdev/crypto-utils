@@ -15,7 +15,7 @@ import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.Cipher;
 
 /**
- * A simple utility class for easily encrypting and decrypting your data using the RSA algorithm.
+ * A simple utility class for easily encrypting and decrypting data using the RSA algorithm.
  * 
  *  @author Chad Adams
  */
@@ -24,7 +24,7 @@ public class RSAUtils {
 	/**
 	 * The constant that denotes the algorithm being used.
 	 */
-	private static final String ALGORITHM = "RSA";
+	private static final String algorithm = "RSA";	
 	
 	/**
 	 * The private constructor to prevent instantiation of this object.
@@ -46,7 +46,7 @@ public class RSAUtils {
 	 */
 	public static boolean generateKey(String publicKeyOutput, String privateKeyOutput) {
 		try {
-			final KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ALGORITHM);
+			final KeyPairGenerator keyGen = KeyPairGenerator.getInstance(algorithm);
 			keyGen.initialize(2048);
 
 			final KeyPair key = keyGen.generateKeyPair();
@@ -82,7 +82,7 @@ public class RSAUtils {
 	public static byte[] encrypt(PublicKey key, byte[] data) {		
 		try {
 
-			final Cipher cipher = Cipher.getInstance(ALGORITHM);
+			final Cipher cipher = Cipher.getInstance(algorithm);
 
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 
@@ -111,7 +111,7 @@ public class RSAUtils {
 
 		try {
 
-			final Cipher cipher = Cipher.getInstance(ALGORITHM);
+			final Cipher cipher = Cipher.getInstance(algorithm);
 
 			cipher.init(Cipher.DECRYPT_MODE, key);
 
@@ -138,7 +138,7 @@ public class RSAUtils {
 	 * @return The {@link PublicKey} object.
 	 */
 	public static PublicKey getPublicKey(String publicKeyPath) throws Exception {
-		return KeyFactory.getInstance(ALGORITHM).generatePublic(new X509EncodedKeySpec(Files.readAllBytes(Paths.get(publicKeyPath))));
+		return KeyFactory.getInstance(algorithm).generatePublic(new X509EncodedKeySpec(Files.readAllBytes(Paths.get(publicKeyPath))));
 	}
 	
 	/**
@@ -154,7 +154,7 @@ public class RSAUtils {
 	 * @return The {@link PrivateKey} object.
 	 */
 	public static PrivateKey getPrivateKey(String privateKeyPath) throws Exception {
-		return KeyFactory.getInstance(ALGORITHM).generatePrivate(new PKCS8EncodedKeySpec(Files.readAllBytes(Paths.get(privateKeyPath))));
+		return KeyFactory.getInstance(algorithm).generatePrivate(new PKCS8EncodedKeySpec(Files.readAllBytes(Paths.get(privateKeyPath))));
 	}
 		
 	/**
@@ -169,7 +169,7 @@ public class RSAUtils {
 	 * @return The {@link PublicKey} object.
 	 */
 	public static PublicKey getPublicKey(byte[] encryptedPublicKey) throws Exception {
-		return KeyFactory.getInstance(ALGORITHM).generatePublic(new X509EncodedKeySpec(encryptedPublicKey));
+		return KeyFactory.getInstance(algorithm).generatePublic(new X509EncodedKeySpec(encryptedPublicKey));
 	}
 	
 	/**
@@ -185,7 +185,7 @@ public class RSAUtils {
 	 * @return The {@link PrivateKey} object.
 	 */
 	public static PrivateKey getPrivateKey(byte[] encryptedPrivateKey) throws Exception {
-		return KeyFactory.getInstance(ALGORITHM).generatePrivate(new PKCS8EncodedKeySpec(encryptedPrivateKey));
+		return KeyFactory.getInstance(algorithm).generatePrivate(new PKCS8EncodedKeySpec(encryptedPrivateKey));
 	}
 
 }
